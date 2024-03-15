@@ -20,13 +20,17 @@ export default function Home() {
     <>
       <Box flex={1}>
         <ScrollView>
-          <Box flexDirection="row" flexWrap="wrap" p="$2">
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              snacks.map((item: Snack) => <SnackCard key={item.id} {...item} />)
-            )}
-          </Box>
+          {isLoading ? (
+            <Box height={600} alignItems="center" justifyContent="center">
+              <Spinner size="large" />
+            </Box>
+          ) : (
+            <Box flexDirection="row" flexWrap="wrap" p="$2">
+              {snacks.map((item: Snack) => (
+                <SnackCard key={item.id} {...item} />
+              ))}
+            </Box>
+          )}
         </ScrollView>
       </Box>
       <Fab size="lg" onPress={() => navigation.navigate('Cart')}>
