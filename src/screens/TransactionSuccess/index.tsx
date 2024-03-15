@@ -7,28 +7,14 @@ import {
   ScrollView,
   Text,
 } from '@gluestack-ui/themed';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {StackNavigation} from '../../interfaces/StackNavigation';
 import LottieView from 'lottie-react-native';
+
 import SnackCard from './components/SnackCard';
 import toIDR from '../../utils/toIDR';
-import {useQueryClient} from '@tanstack/react-query';
-import useAppDispatch from '../../hooks/useAppDispatch';
-import {clearItems} from '../../features/shoppingCart';
+import useTransactionSuccess from './hooks/useTransactionSuccess';
 
 export default function TransactionSuccess() {
-  const navigation = useNavigation<StackNavigation>();
-  const route = useRoute<any>();
-  const queryClient = useQueryClient();
-  const dispatch = useAppDispatch();
-  const {change, items, total} = route?.params;
-
-  const handleHome = () => {
-    dispatch(clearItems());
-    queryClient.invalidateQueries({queryKey: ['snacks']});
-    navigation.navigate('Home');
-  };
-
+  const {items, total, change, handleHome} = useTransactionSuccess();
   return (
     <Box flex={1} alignItems="center" p="$4">
       <LottieView
